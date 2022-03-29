@@ -10,5 +10,5 @@
 - `./src/pages` is where the 'webpages' will go, they're essentially just files with functions which return a div that can be rendered on the page
 - `./src/styles` put all your css here - check other code to see how to import it
 
-#### Quick reminder
+### Quick reminder
 Don't forget to `git pull` before `git push` just so we don't like weird errors
