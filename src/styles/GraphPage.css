@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.btn:hover:disabled {
+    cursor: default;
+}
+
+.btn:hover {
+    transform: scale(1.1)
+}
+
+.btn {
+    margin: 10px;
+}
