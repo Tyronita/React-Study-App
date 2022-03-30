@@ -1,6 +1,6 @@
 export default function TodoPage() {
     return (
-        <div>
+        <div style={{minHeight: "100vh"}}>
             <h2>Todo</h2>
         </div>
     );

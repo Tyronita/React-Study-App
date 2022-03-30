@@ -1,3 +1,11 @@
+/*
+TODO:
+- change which days to display
+- which subjects to display 
+- mood selection
+
+ */
+
 import React, {useState} from 'react';
 import {
     Chart as ChartJS,
@@ -9,10 +17,12 @@ import {
     Tooltip,
     Legend,
     ArcElement,
+    ChartData,
 } from 'chart.js';
 import { Line, Pie } from 'react-chartjs-2';
 
 import "../styles/GraphPage.css";
+import fakedata from "../fakedata/fake_data.js";
 
 ChartJS.register(
     CategoryScale,
@@ -38,26 +48,33 @@ export const options = {
     },
 };
 
-const labels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+/* NOTE(gonk): This data stuff is just test code */
 
-export const data = {
-    labels,
-    datasets: [
-        {
-            tension: 0.3,
-            label: 'Maths',
-            data: labels.map(() => (Math.random()*100)%10),
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        },
-        {
-            label: 'Computer Science',
-            data: labels.map(() => (Math.random()*100)%10),
-            borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        },
-    ],
-};
+const monthLabels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const weekDaysLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const days = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+
+function makeLineGraphData(
+        month: string,
+        borderColor: string = 'rgb(255, 99, 132)',
+        backgroundColor: string = 'rgba(255, 99, 132, 0.5)'
+    ): ChartData<'line'> {
+
+    //let hoursStudied = labels.map(() => (Math.random()*100)%8);
+
+    return {
+        labels: days,
+        datasets: [
+            {
+                tension: 0.1,
+                label: 'Total time',
+                data: fakedata[month as keyof typeof fakedata],
+                borderColor: borderColor,
+                backgroundColor: backgroundColor,
+            },
+        ],
+    }
+}
 
 export const pieData = {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -88,32 +105,35 @@ export const pieData = {
 
 export default function GraphPage() {
     const [chartType, setChartType] = useState<"line" | "pie">("line")
+    const [lineChartData, setLineChartData] = useState<ChartData<'line'>>(
+        makeLineGraphData("January")
+    );
 
     return (
-        <div>
-            <div>
+        <div style={{minHeight: "100vh"}}>
+
+            <div className={"container2"}>
                 <button className={"btn"}
                         onClick={() => {setChartType("line")}}
                         disabled={chartType === "line"}
                 >
-                    Show Line Chart
+                    Line Chart
                 </button>
-                <button className={"brn"}
+                <div className={"verticalBarDiv"}></div>
+                <button className={"btn"}
                         onClick={() => {setChartType("pie")}}
                         disabled={chartType === "pie"}
                 >
-                    Show Pie Chart
+                    Pie Chart
                 </button>
             </div>
-
-            <br/>
 
             <div className={"container"}>
                 <div style={{height: "50%", width: "50%"}}>
                     { chartType === "line" && (
                         <>
                             <h2>Line chart</h2>
-                            <Line options={options} data={data} />
+                            <Line options={options} data={lineChartData} />
                         </>
                     )}
                     { chartType === "pie" && (
@@ -123,7 +143,23 @@ export default function GraphPage() {
                         </>
                     )}
                 </div>
+                <div>
+                    <select onChange={
+                        e=>{
+                            setLineChartData(makeLineGraphData(e.target.value));
+                            console.log(e.target.value);
+                        }
+                        }>
+                        {
+                            monthLabels.map((element, index) => (
+                                <option value={element} key={index}>{element}</option>    
+                            ))
+                        }
+                    </select>
+
+                </div>
             </div>
+
         </div>
     );
 }

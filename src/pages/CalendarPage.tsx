@@ -1,6 +1,6 @@
 export default function CalendarPage() {
     return (
-        <div>
+        <div style={{minHeight: "100vh"}}>
             <h2>Calendar</h2>
         </div>
     );

@@ -6,8 +6,21 @@
     min-height: 80vh;
 }
 
+.container2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    padding-top: 15px;
+}
+
 .btn:hover:disabled {
     cursor: default;
+    transform: scale(1.0);
+}
+
+.btn:disabled {
+    color: #BBB;
 }
 
 .btn:hover {
@@ -15,5 +28,12 @@
 }
 
 .btn {
-    margin: 10px;
+    margin: 5px;
+    border: 0px;
+    background-color: white;
+}
+
+.verticalBarDiv {
+    border-left: 2px solid #777;
+    height: 100%;
 }
