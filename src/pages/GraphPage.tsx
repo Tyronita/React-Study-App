@@ -4,6 +4,8 @@ TODO:
 - which subjects to display 
 - mood selection
 
+Do the same for pie chart^
+
  */
 
 import React, {useState} from 'react';
@@ -52,29 +54,10 @@ export const options = {
 
 const monthLabels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const weekDaysLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-const days = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+const howManyDaysMonth = {"January":31, "February":28, "March":31, "April":30, "May":31, "June":30, "July":31, "August":30, "September":30, "October":31, "November":30, "December":31};
+const days = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
 
-function makeLineGraphData(
-        month: string,
-        borderColor: string = 'rgb(255, 99, 132)',
-        backgroundColor: string = 'rgba(255, 99, 132, 0.5)'
-    ): ChartData<'line'> {
-
-    //let hoursStudied = labels.map(() => (Math.random()*100)%8);
-
-    return {
-        labels: days,
-        datasets: [
-            {
-                tension: 0.1,
-                label: 'Total time',
-                data: fakedata[month as keyof typeof fakedata],
-                borderColor: borderColor,
-                backgroundColor: backgroundColor,
-            },
-        ],
-    }
-}
+const subjects = ["Photograph", "Music", "Maths", "Computer Science", "Chemistry"];
 
 export const pieData = {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -103,11 +86,63 @@ export const pieData = {
   ],
 };
 
+/* Returns an object {subject: False} for all subjects*/
+function getSubjectsDisplayedDefaultValue()
+{
+    const result: {[key:string]: boolean} = {};
+    for (const s of subjects)
+    {
+        result[s] = false;
+    }
+    result[subjects[0]] = true; // Set first one as true
+    return result;
+}
+
+function getStartingDataForLineGraph()
+{
+    return {labels:[], datasets: []};
+}
+
 export default function GraphPage() {
-    const [chartType, setChartType] = useState<"line" | "pie">("line")
+    const [monthBeingDisplayed, setMonthBeingDisplayed] = useState("January");
+    const [subjectsDisplayed, setSubjectsDisplayed] = useState(getSubjectsDisplayedDefaultValue());
+
+    const [chartType, setChartType] = useState<"line" | "pie">("line");
     const [lineChartData, setLineChartData] = useState<ChartData<'line'>>(
-        makeLineGraphData("January")
+        getStartingDataForLineGraph()
     );
+
+    //function updateGraphData(): ChartData<'line'> {
+    function updateGraphData(): void {
+            
+        let borderColor: string = 'rgb(255, 99, 132)';
+        let backgroundColor: string = 'rgba(255, 99, 132, 0.5)';
+
+        //console.log(monthBeingDisplayed);
+
+        setLineChartData({
+            labels: days.slice(0, howManyDaysMonth[monthBeingDisplayed as keyof typeof howManyDaysMonth]),
+            datasets: [
+                {
+                    tension: 0.1,
+                    label: 'Total time',
+                    data: fakedata["Maths" as keyof typeof fakedata][monthBeingDisplayed as keyof typeof fakedata["Maths"]],
+                    borderColor: borderColor,
+                    backgroundColor: backgroundColor,
+                },
+            ],
+        })
+    }
+
+    function handleOnChangeMonthPicker(e: any)
+    {
+        //e.preventDefault();
+        console.log(monthBeingDisplayed);
+        console.log(e.target.value);
+        setMonthBeingDisplayed(e.target.value);
+        console.log(monthBeingDisplayed);
+        updateGraphData();
+    }
 
     return (
         <div style={{minHeight: "100vh"}}>
@@ -144,19 +179,31 @@ export default function GraphPage() {
                     )}
                 </div>
                 <div>
-                    <select onChange={
-                        e=>{
-                            setLineChartData(makeLineGraphData(e.target.value));
-                            console.log(e.target.value);
-                        }
-                        }>
+                    <select onChange={handleOnChangeMonthPicker}>
                         {
                             monthLabels.map((element, index) => (
                                 <option value={element} key={index}>{element}</option>    
                             ))
                         }
                     </select>
-
+                </div>
+                <div>
+                    {
+                        subjects.map((element, index) => {
+                            return (
+                                <div key={index} className={"checkboxText"}>
+                                    <input type="checkbox" checked={subjectsDisplayed[element]}
+                                        onChange={(e) => {
+                                            setSubjectsDisplayed({
+                                                ...subjectsDisplayed,
+                                                [element]: e.target.checked,
+                                            });
+                                        }}/>
+                                    <p>{element}</p>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </div>
 

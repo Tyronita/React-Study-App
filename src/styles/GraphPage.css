@@ -14,6 +14,11 @@
     padding-top: 15px;
 }
 
+.checkboxText {
+    display: flex;
+    align-items: center;
+}
+
 .btn:hover:disabled {
     cursor: default;
     transform: scale(1.0);
