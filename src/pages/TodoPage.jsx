@@ -7,22 +7,22 @@ import AddTask from '../components/AddTask';
 
 export default function TodoPage() {
   const [showAddTask, setShowAddTask] = useState(false)
-    const [tasks, setTasks] = useState<any[]>([
+    const [tasks, setTasks] = useState([
      
   ])
 
-    const addTask = (task: any) => {
+    const addTask = (task) => {
     const id = Math.floor(Math.random() *10000)
     const newTask = {id, ...task}
     setTasks([...tasks, newTask])
   }
 
-    const deleteTask = (id: any) => {
+    const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
 
-    const isImportant = (task: any, id: any) =>{
+    const isImportant = (task, id) =>{
     if(task.id === id && task.important === true){
       return('task_important');
     }
@@ -31,17 +31,17 @@ export default function TodoPage() {
     }
   }
 
-    const changeImportance = (task: any, id: any) => {
+    const changeImportance = (task, id) => {
     setTasks(tasks.map((task) => task.id === id ? {...task, important: !task.important} : task))
     return(isImportant(task, id));
   }
 
-    const changeReminder = (task: any, id: any) => {
+    const changeReminder = (task, id) => {
     setTasks(tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task))
     return(reminderOn(task, id));
   }
 
-    const reminderOn = (task: any, id: any) => {
+    const reminderOn = (task, id) => {
     if(task.id === id && task.reminder === true){
       return('task_reminder');
     }
