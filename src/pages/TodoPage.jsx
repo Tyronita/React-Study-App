@@ -1,5 +1,5 @@
 //import logo from './logo.svg';
-import '../styles/todo.css';
+import '../styles/Todo.css';
 import Header from '../components/Header'
 import Tasks from '../components/Tasks'
 import React, {useState} from 'react'

@@ -40,7 +40,7 @@ const AddTask = ({onAdd}) => {
             <label>Important</label>
             <input type='checkbox' value={important} checked={important} onChange={(e) => setImportant(e.currentTarget.checked)}/>
             
-            <input type='submit' value='Save Task' className = 'btn btn-block'/>
+            <input type='submit' value='Save Task' className = 'TodoBtn TodoBtn-block'/>
         </div>
     </form>
   )

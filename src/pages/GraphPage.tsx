@@ -147,15 +147,15 @@ export default function GraphPage() {
     return (
         <div style={{minHeight: "100vh"}}>
 
-            <div className={"container2"}>
-                <button className={"btn"}
+            <div className={"GraphContainer2"}>
+                <button className={"GraphPageBtn"}
                         onClick={() => {setChartType("line")}}
                         disabled={chartType === "line"}
                 >
                     Line Chart
                 </button>
                 <div className={"verticalBarDiv"}></div>
-                <button className={"btn"}
+                <button className={"GraphPageBtn"}
                         onClick={() => {setChartType("pie")}}
                         disabled={chartType === "pie"}
                 >
@@ -163,7 +163,7 @@ export default function GraphPage() {
                 </button>
             </div>
 
-            <div className={"container"}>
+            <div className={"GraphContainer"}>
                 <div style={{height: "50%", width: "50%"}}>
                     { chartType === "line" && (
                         <>

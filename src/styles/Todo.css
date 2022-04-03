@@ -1,16 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/*
+NOTE(gonk): Ruth I commented the following css out because it was overriding Evan's css since React bundles all the css together 
+*/
+/** {*/
+  /*box-sizing: border-box;*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+/*}*/
 
-body {
-  font-family: 'Poppins', sans-serif;
-}
+/*body {*/
+  /*font-family: 'Poppins', sans-serif;*/
+/*}*/
 
-.container {
+.TodoContainer {
   max-width: 500px;
   margin: 30px auto;
   overflow: auto;
@@ -20,7 +23,7 @@ body {
   border-radius: 5px;
 }
 
-.header {
+.TodoHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,7 +31,7 @@ body {
   margin-bottom: 20px;
 }
 
-.btn {
+.TodoBtn {
   display: inline-block;
   background: purple;
   color: #fff;
@@ -42,15 +45,15 @@ body {
   font-family: inherit;
 }
 
-.btn:focus {
+.TodoBtn:focus {
   outline: none;
 }
 
-.btn:active {
+.TodoBtn:active {
   transform: scale(0.98);
 }
 
-.btn-block {
+.TodoBtn-block {
   display: block;
   width: 100%;
 }

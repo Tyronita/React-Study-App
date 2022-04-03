@@ -1,4 +1,4 @@
-.container {
+.GraphContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,7 +6,7 @@
     min-height: 80vh;
 }
 
-.container2 {
+.GraphContainer2 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,20 +19,20 @@
     align-items: center;
 }
 
-.btn:hover:disabled {
+.GraphPageBtn:hover:disabled {
     cursor: default;
     transform: scale(1.0);
 }
 
-.btn:disabled {
+.GraphPageBtn:disabled {
     color: #BBB;
 }
 
-.btn:hover {
+.GraphPageBtn:hover {
     transform: scale(1.1)
 }
 
-.btn {
+.GraphPageBtn {
     margin: 5px;
     border: 0px;
     background-color: white;
