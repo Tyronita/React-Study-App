@@ -59,33 +59,6 @@ const days = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13
 
 const subjects = ["Photography", "Music", "Maths", "Computer Science", "Chemistry"];
 
-export const pieData = {
-  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-  datasets: [
-    {
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)',
-      ],
-      borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
-
 /* Returns an object {subject: False} for all subjects*/
 function getSubjectsDisplayedDefaultValue()
 {
@@ -94,11 +67,13 @@ function getSubjectsDisplayedDefaultValue()
     {
         result[s] = false;
     }
-    result[subjects[0]] = true; // Set first one as true
+    // Set first two to true
+    result[subjects[0]] = true;
+    result[subjects[1]] = true;
     return result;
 }
 
-function getStartingDataForLineGraph()
+function getStartingDataForGraph()
 {
     return {labels:[], datasets: []};
 }
@@ -109,31 +84,33 @@ export default function GraphPage() {
 
     const [chartType, setChartType] = useState<"line" | "pie">("line");
     const [lineChartData, setLineChartData] = useState<ChartData<'line'>>(
-        getStartingDataForLineGraph()
+        getStartingDataForGraph()
+    );
+    const [pieChartData, setPieChartData] = useState<ChartData<'pie'>>(
+        getStartingDataForGraph()
     );
 
-    //function updateGraphData(): ChartData<'line'> {
-    function updateGraphData(): void {
-            
-        const borderColor: string = 'rgb(255, 99, 132)';
-        const backgroundColor: string = 'rgba(255, 99, 132, 0.5)';
+    const borderColors: { [key: string]: string; } = {
+        "Maths": "rgba(255, 99, 132)",
+        "Photography": "rgba(26, 250, 132)",
+        "Music": "rgba(150, 0, 230)",
+        "Computer Science": "rgba(150, 99, 132)",
+        "Chemistry": "rgba(50, 255, 50)",
+    };
 
-        const borderColors: { [key: string]: string; } = {
-            "Maths": "rgba(255, 99, 132)",
-            "Photography": "rgba(26, 250, 132)",
-            "Music": "rgba(150, 0, 230)",
-            "Computer Science": "rgba(150, 99, 132)",
-            "Chemistry": "rgba(50, 255, 50)",
-        };
+    const backgroundColors: { [key: string]: string; } = {
+        "Maths": "rgba(255, 99, 132, 0.5)",
+        "Photography": "rgba(26, 250, 132, 0.5)",
+        "Music": "rgba(150, 0, 230, 0.5)",
+        "Computer Science": "rgba(150, 99, 132, 0.5)",
+        "Chemistry": "rgba(50, 255, 50, 0.5)",
+    };
 
-        const backgroundColors: { [key: string]: string; }= {
-            "Maths": "rgba(255, 99, 132, 0.5)",
-            "Photography": "rgba(26, 250, 132, 0.5)",
-            "Music": "rgba(150, 0, 230, 0.5)",
-            "Computer Science": "rgba(150, 99, 132, 0.5)",
-            "Chemistry": "rgba(50, 255, 50, 0.5)",
-        };
 
+    /* ==========
+     * LINE GRAPH
+     * ========== */
+    function updateLineGraphData(): void {
         // Get dataset for every subject that is turned on
         let _datasets: any = [];
         for (const subject of subjects) {
@@ -152,6 +129,44 @@ export default function GraphPage() {
             labels: days.slice(0, howManyDaysMonth[monthBeingDisplayed as keyof typeof howManyDaysMonth]),
             datasets: _datasets,
         })
+    }
+
+    /* =========
+     * PIE GRAPH
+     * ========= */
+    function updatePieGraphData(): void {
+        let _labels: string[] = [];
+        let _data:   number[] = [];
+
+        for (const subject of subjects) {
+            if (subjectsDisplayed[subject]) {
+                _labels.push(subject);
+
+                // Calculate total days studied for that month of that subject
+                _data.push(
+                    (fakedata[subject as keyof typeof fakedata][monthBeingDisplayed as keyof typeof fakedata["Maths"]]).reduce((partialSum, a) => partialSum + a, 0)
+                );
+            }
+        }
+
+        setPieChartData({
+            labels: _labels,
+            datasets: [
+              {
+                  label: '# of Hours Studied',
+                  data: _data,
+                  backgroundColor: Object.values(backgroundColors),
+                  borderColor: Object.values(borderColors),
+                  borderWidth: 1,
+              },
+            ],
+          })
+    }
+
+
+    function updateGraphData(): void {
+        updateLineGraphData();
+        updatePieGraphData();
     }
 
     useEffect(() => {
@@ -185,14 +200,18 @@ export default function GraphPage() {
                 <div style={{height: "50%", width: "50%"}}>
                     { chartType === "line" && (
                         <>
-                            <h2>Line chart</h2>
-                            <Line options={options} data={lineChartData} />
+                            <div style={{height: "100%", width: "100%"}}>
+                                <h2>Line chart</h2>
+                                <Line options={options} data={lineChartData} />
+                            </div>
                         </>
                     )}
                     { chartType === "pie" && (
                         <>
-                            <h2>Pie Chart</h2>
-                            <Pie data={pieData} />
+                            <div style={{height: "80%", width: "80%"}}>
+                                <h2>Pie Chart</h2>
+                                <Pie data={pieChartData} />
+                            </div>
                         </>
                     )}
                 </div>
