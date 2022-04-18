@@ -8,7 +8,7 @@ Do the same for pie chart^
 
  */
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -57,7 +57,7 @@ const weekDaysLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const howManyDaysMonth = {"January":31, "February":28, "March":31, "April":30, "May":31, "June":30, "July":31, "August":30, "September":30, "October":31, "November":30, "December":31};
 const days = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
 
-const subjects = ["Photograph", "Music", "Maths", "Computer Science", "Chemistry"];
+const subjects = ["Photography", "Music", "Maths", "Computer Science", "Chemistry"];
 
 export const pieData = {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
@@ -115,34 +115,52 @@ export default function GraphPage() {
     //function updateGraphData(): ChartData<'line'> {
     function updateGraphData(): void {
             
-        let borderColor: string = 'rgb(255, 99, 132)';
-        let backgroundColor: string = 'rgba(255, 99, 132, 0.5)';
+        const borderColor: string = 'rgb(255, 99, 132)';
+        const backgroundColor: string = 'rgba(255, 99, 132, 0.5)';
 
-        //console.log(monthBeingDisplayed);
+        const borderColors: { [key: string]: string; } = {
+            "Maths": "rgba(255, 99, 132)",
+            "Photography": "rgba(26, 250, 132)",
+            "Music": "rgba(150, 0, 230)",
+            "Computer Science": "rgba(150, 99, 132)",
+            "Chemistry": "rgba(50, 255, 50)",
+        };
+
+        const backgroundColors: { [key: string]: string; }= {
+            "Maths": "rgba(255, 99, 132, 0.5)",
+            "Photography": "rgba(26, 250, 132, 0.5)",
+            "Music": "rgba(150, 0, 230, 0.5)",
+            "Computer Science": "rgba(150, 99, 132, 0.5)",
+            "Chemistry": "rgba(50, 255, 50, 0.5)",
+        };
+
+        // Get dataset for every subject that is turned on
+        let _datasets: any = [];
+        for (const subject of subjects) {
+            if (subjectsDisplayed[subject]) {
+                _datasets.push({
+                    tension: 0.2,
+                    label: subject,
+                    data: fakedata[subject as keyof typeof fakedata][monthBeingDisplayed as keyof typeof fakedata["Maths"]],
+                    borderColor: borderColors[subject],
+                    backgroundColor: backgroundColors[subject],
+                });
+            }
+        }
 
         setLineChartData({
             labels: days.slice(0, howManyDaysMonth[monthBeingDisplayed as keyof typeof howManyDaysMonth]),
-            datasets: [
-                {
-                    tension: 0.1,
-                    label: 'Total time',
-                    data: fakedata["Maths" as keyof typeof fakedata][monthBeingDisplayed as keyof typeof fakedata["Maths"]],
-                    borderColor: borderColor,
-                    backgroundColor: backgroundColor,
-                },
-            ],
+            datasets: _datasets,
         })
     }
 
-    function handleOnChangeMonthPicker(e: any)
-    {
-        //e.preventDefault();
-        console.log(monthBeingDisplayed);
-        console.log(e.target.value);
-        setMonthBeingDisplayed(e.target.value);
-        console.log(monthBeingDisplayed);
-        updateGraphData();
-    }
+    useEffect(() => {
+        updateGraphData(); // This is be executed when the state changes
+    }, [monthBeingDisplayed]);
+
+    useEffect(() => {
+        updateGraphData(); // This is be executed when the state changes
+    }, [subjectsDisplayed]);
 
     return (
         <div style={{minHeight: "100vh"}}>
@@ -179,10 +197,10 @@ export default function GraphPage() {
                     )}
                 </div>
                 <div>
-                    <select onChange={handleOnChangeMonthPicker}>
+                    <select onChange={(e: any) => setMonthBeingDisplayed(e.target.value)}>
                         {
                             monthLabels.map((element, index) => (
-                                <option value={element} key={index}>{element}</option>    
+                                <option value={element} key={index}>{element}</option>
                             ))
                         }
                     </select>
