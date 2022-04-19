@@ -12,6 +12,7 @@ const Navbar = () => {
                 <Link to="/analytics">Analytics</Link>
                 <Link to="/calendar">Calendar</Link>
                 <Link to="/stopwatch">Stopwatch</Link>
+                <Link to="/timer">Timer</Link>
                 <Link to="/todo">Todo</Link>
                 <Link to="/settings">Settings</Link>
             </div>

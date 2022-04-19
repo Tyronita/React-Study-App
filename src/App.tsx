@@ -6,9 +6,11 @@ import HomePage from "./pages/HomePage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import CalendarPage from "./pages/CalendarPage";
 import StopwatchPage from "./pages/StopwatchPage";
+import TimerPage from "./pages/TimerPage";
 import TodoPage from "./pages/TodoPage";
 import SettingsPage from "./pages/SettingsPage";
 import NoMatchPage from "./pages/NoMatchPage";
+import Timer from "./pages/TimerPage";
 
 export default function App() {
     return (
@@ -21,10 +23,14 @@ export default function App() {
                 <Route path="/analytics" element={<AnalyticsPage />} />
                 <Route path="/calendar" element={<CalendarPage />} />
                 <Route path="/stopwatch" element={<StopwatchPage />} />
+                <Route path="/timer" element={<TimerPage />} />
                 <Route path="/todo" element={<TodoPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/*" element={<NoMatchPage />} />
             </Routes>
+
+            <Timer
+            countdownTimestampMs={1643673600000}/>
         </div>
     );
 }
