@@ -10,7 +10,6 @@ import TimerPage from "./pages/TimerPage";
 import TodoPage from "./pages/TodoPage";
 import SettingsPage from "./pages/SettingsPage";
 import NoMatchPage from "./pages/NoMatchPage";
-import Timer from "./pages/TimerPage";
 
 export default function App() {
     return (
@@ -28,9 +27,6 @@ export default function App() {
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/*" element={<NoMatchPage />} />
             </Routes>
-
-            <Timer
-            countdownTimestampMs={1643673600000}/>
         </div>
     );
 }
