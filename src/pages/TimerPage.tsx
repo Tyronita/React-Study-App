@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react';
 import '../styles/TimerPage.css';
-import {getRemainingTimeUntilMsTimestamp} from '../components/TimerUtils';
 
 
 var on = false;
@@ -29,8 +28,6 @@ const Timer = ({time}) => {
     useEffect(() => {
         const intervalId = setInterval(() => {
             updateRemainingTime(time);
-            if (on) {
-            }
         }, 1000);
         return () => clearInterval(intervalId);
     },[time]);
@@ -38,18 +35,31 @@ const Timer = ({time}) => {
 
 
     function updateRemainingTime(countdown: any) {
-        setRemainingTime(getRemainingTimeUntilMsTimestamp(countdown));
-        if (setValues) {
-            remainingTime.hours = (document.getElementById("hour") as HTMLInputElement).value;
-            remainingTime.minutes = (document.getElementById("minute") as HTMLInputElement).value;
-            remainingTime.seconds = (document.getElementById("sec") as HTMLInputElement).value;
-            setValues = false;
-        }
-
+        // setRemainingTime(getRemainingTimeUntilMsTimestamp(countdown));
         if (on) {
-            (document.getElementById("hour") as HTMLInputElement).value = remainingTime.hours;
-            (document.getElementById("minute") as HTMLInputElement).value = remainingTime.minutes;
-            (document.getElementById("sec") as HTMLInputElement).value = remainingTime.seconds;
+            var seconds = (document.getElementById("sec") as HTMLInputElement).value;
+            var sec: number = +seconds;
+            var minutes = (document.getElementById("minute") as HTMLInputElement).value;
+            var min: number = +minutes;
+            var hours = (document.getElementById("hour") as HTMLInputElement).value;
+            var hrs: number = +hours;
+            if (sec == 0 && min == 0 && hrs == 0) {
+                on = false;
+            }
+            else {
+                sec--;
+                if (sec < 0) {
+                    sec = 59;
+                    min--;
+                    if (min < 0) {
+                        min = 59;
+                        hrs--;
+                    }
+                }
+            }
+            (document.getElementById("sec") as HTMLInputElement).value = sec.toString();
+            (document.getElementById("minute") as HTMLInputElement).value = min.toString();
+            (document.getElementById("hour") as HTMLInputElement).value = hrs.toString();
         }
     }
 
