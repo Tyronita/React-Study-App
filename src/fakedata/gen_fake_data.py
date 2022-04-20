@@ -7,7 +7,7 @@ import random
 
 monthLabels = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 monthDays = [31, 28, 31, 30, 31, 30, 31, 30, 31, 30, 31, 30];
-subjects = ["Photograph", "Music", "Maths", "Computer Science", "Chemistry"]
+subjects = ["Photographyy", "Music", "Maths", "Computer Science", "Chemistry"]
 
 data = {s:{m:[] for m in monthLabels} for s in subjects}
 

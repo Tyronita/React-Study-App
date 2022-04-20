@@ -1,5 +1,5 @@
 export default {
-    "Photograph": {
+    "Photography": {
         "January": [
             0,
             6,
