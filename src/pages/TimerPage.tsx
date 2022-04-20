@@ -12,26 +12,25 @@ function startTimer() {
 }
 
 function resetTimer(){
-    (document.getElementById("hour") as HTMLInputElement).value = '00';
-    (document.getElementById("minute") as HTMLInputElement).value = '00';
-    (document.getElementById("sec") as HTMLInputElement).value = '00';
+    (document.getElementById("hour") as HTMLInputElement).value = '0';
+    (document.getElementById("minute") as HTMLInputElement).value = '0';
+    (document.getElementById("sec") as HTMLInputElement).value = '0';
     on = false;
 }
 
 const defaultRemainingTime = {
-    seconds: '00',
-    minutes: '00',
-    hours: '00'
+    seconds: '0',
+    minutes: '0',
+    hours: '0'
 }
 
-const Timer = () => {
-    const d = new Date();
-    let time = d.getTime();
+const Timer = ({time}) => {
     const [remainingTime, setRemainingTime] = useState(defaultRemainingTime);
-
     useEffect(() => {
         const intervalId = setInterval(() => {
             updateRemainingTime(time);
+            if (on) {
+            }
         }, 1000);
         return () => clearInterval(intervalId);
     },[time]);
@@ -46,6 +45,7 @@ const Timer = () => {
             remainingTime.seconds = (document.getElementById("sec") as HTMLInputElement).value;
             setValues = false;
         }
+
         if (on) {
             (document.getElementById("hour") as HTMLInputElement).value = remainingTime.hours;
             (document.getElementById("minute") as HTMLInputElement).value = remainingTime.minutes;
@@ -60,7 +60,7 @@ const Timer = () => {
             <button id="start" className="btn" onClick={startTimer}>Start</button>
             <button id="reset" className="btn" onClick={resetTimer}>Reset</button>
         </div>
-    );
+    )
 }
 
 

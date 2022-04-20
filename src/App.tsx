@@ -11,6 +11,9 @@ import TodoPage from "./pages/TodoPage";
 import SettingsPage from "./pages/SettingsPage";
 import NoMatchPage from "./pages/NoMatchPage";
 
+const d = new Date();
+let currentTime = d.getTime();
+
 export default function App() {
     return (
         <div>
@@ -22,7 +25,7 @@ export default function App() {
                 <Route path="/analytics" element={<AnalyticsPage />} />
                 <Route path="/calendar" element={<CalendarPage />} />
                 <Route path="/stopwatch" element={<StopwatchPage />} />
-                <Route path="/timer" element={<TimerPage />} />
+                <Route path="/timer" element={<TimerPage time={currentTime} />} />
                 <Route path="/todo" element={<TodoPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/*" element={<NoMatchPage />} />
