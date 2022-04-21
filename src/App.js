@@ -27,6 +27,8 @@ import Timer from "./pages/TimerPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/index.css";
 
+import { createTheme } from '@mui/material/styles';
+
 export default function App() {
 
     // current user
@@ -34,6 +36,21 @@ export default function App() {
     // onAuthStateChanged(auth, (currentUser) => {
     //     setUser(currentUser);
     // });
+    
+    const theme = createTheme({
+        palette: {
+            primary: {
+                main: '#d42c5e',
+            },
+            secondary: {
+                light: '#0066ff',
+                main: '#0044ff',
+                contrastText: '#ffcc00',
+            },
+            contrastThreshold: 3,
+            tonalOffset: 0.2,
+        },
+    });
 
     return (
         <div>
