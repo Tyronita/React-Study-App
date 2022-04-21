@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+/*
+NOTE(gonk): Ruth I commented the following css out because it was overriding Evan's css since React bundles all the css together 
+*/
+/** {*/
+  /*box-sizing: border-box;*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+/*}*/
+
+/*body {*/
+  /*font-family: 'Poppins', sans-serif;*/
+/*}*/
+
+.TodoContainer {
+  max-width: 500px;
+  margin: 30px auto;
+  overflow: auto;
+  min-height: 300px;
+  border: 1px solid steelblue;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.TodoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* text-align: center; */
+  margin-bottom: 20px;
+}
+
+.TodoBtn {
+  display: inline-block;
+  background: purple;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.TodoBtn:focus {
+  outline: none;
+}
+
+.TodoBtn:active {
+  transform: scale(0.98);
+}
+
+.TodoBtn-block {
+  display: block;
+  width: 100%;
+}
+
+.task {
+  background: #f4f4f4;
+  margin: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.task_important {
+  border-left: 5px solid red;
+  background: #f4f4f4;
+  margin: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.task_reminder {
+  border-left: 5px solid blue;
+  background: #f4f4f4;
+  margin: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.task_reminder_and_important{
+  border-left: 5px solid purple;
+  background: #f4f4f4;
+  margin: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.task h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task_important h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task_reminder h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.task_reminder_and_important h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-form {
+  margin-bottom: 40px;
+}
+
+.form-control {
+  margin: 20px 0;
+}
+
+.form-control label {
+  display: block;
+}
+
+.form-control input[type="text"], .form-control input[type="datetime-local"] {
+  width: 99%;
+  height: 45px;
+  margin: 5px;
+  padding: 3px 7px;
+  font-size: 20px;
+}
+
+.form-control-check {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-control-check label {
+  flex: 1;
+}
+
+.form-control-check input {
+  flex: 2;
+  height: 20px;
+}
+
+footer {
+  margin-top: 30px;
+  text-align: center;
+}
+

@@ -1,0 +1,44 @@
+.GraphContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.GraphContainer2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25px;
+    padding-top: 15px;
+}
+
+.checkboxText {
+    display: flex;
+    align-items: center;
+}
+
+.GraphPageBtn:hover:disabled {
+    cursor: default;
+    transform: scale(1.0);
+}
+
+.GraphPageBtn:disabled {
+    color: #BBB;
+}
+
+.GraphPageBtn:hover {
+    transform: scale(1.1)
+}
+
+.GraphPageBtn {
+    margin: 5px;
+    border: 0px;
+    background-color: white;
+}
+
+.verticalBarDiv {
+    border-left: 2px solid #777;
+    height: 100%;
+}
