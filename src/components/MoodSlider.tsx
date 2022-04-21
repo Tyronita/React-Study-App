@@ -6,7 +6,7 @@ function valuetext(value: number) {
   return `${value}°C`;
 }
 
-export default function DiscreteSlider() {
+export const DiscreteSlider: React.FC<{setState: any}> = ({setState}) => {
   return (
     <Box sx={{ width: 300 }}>
       <Slider
@@ -19,6 +19,7 @@ export default function DiscreteSlider() {
         min={1}
         max={10}
         color="primary"
+        onChange={(_, value) => {setState(value)}}
       />
     </Box>
   );
