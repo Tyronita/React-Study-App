@@ -1,0 +1,35 @@
+h1.logo {
+    font-size: 28px;
+  }
+  
+  .nav {
+    max-width: 100vw;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0 auto;
+    border-bottom: 1px solid #f2f2f2;
+  }
+  
+  .nav h1 {
+    color: #f1356d;
+  }
+  .nav .links {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .nav a {
+    margin-left: 16px;
+    text-decoration: none;
+    padding: 6px;
+    color: #333;
+  }
+  .nav a:hover {
+    color: #f1356d;
+    text-decoration: none;
+  }
+
+  button {
+    cursor: pointer;
+  }

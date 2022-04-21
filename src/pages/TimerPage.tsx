@@ -74,4 +74,4 @@ const Timer = ({time}) => {
 }
 
 
-export default Timer;
+export default TimerPage;
