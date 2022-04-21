@@ -3,11 +3,14 @@ import React, { useState }  from "react";
 
 import {Link} from "react-router-dom";
 
+import ModalParent from "../components/MoodModal";
+
 // import authentication
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase-config";
 
 import "../styles/DashboardPage.css";
+import { Modal } from "react-bootstrap";
 
 export default function DashboardPage() {
 
@@ -27,10 +30,11 @@ export default function DashboardPage() {
                 <div className="DashboardWidgets">
                     <Link className="DashboardWidgetContainer" id="DashboardWidgetContainerTopLeft" to="/graph">View how much you studied</Link>
                     <Link className="DashboardWidgetContainer" id="DashboardWidgetContainerTopRight" to="/timer">Time yourself!</Link>
-                    <Link className="DashboardWidgetContainer" id="DashboardWidgetContainerBottomLeft" to="/to-do">Todos!</Link>
+                    <Link className="DashboardWidgetContainer" id="DashboardWidgetContainerBottomLeft" to="/to-do">TODOs!</Link>
                     <Link className="DashboardWidgetContainer" id="DashboardWidgetContainerBottomRight" to="/settings">Manage your settings</Link>
                 </div>
             </div>
+            <ModalParent />
         </div>
     );
 }

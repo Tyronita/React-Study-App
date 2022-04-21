@@ -1,0 +1,52 @@
+.MoodModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .7);
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MoodFormContainer {
+    background-color: white;
+    padding: 2em 8em;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.MoodModalTitle {
+    color: #333;
+    margin: 0 0 1em 0;
+}
+
+.MoodSliderTitle {
+    color: #333;
+    font-size: 2em;
+}
+
+.MoodModalCloseBtn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.MoodSlider {
+    margin: 8px 2em;
+}
+
+.MoodSliderAndEmojiDiv {
+    display: flex;
+}
+
+.MoodSliderEmoji {
+    font-size: 2em;
+}
