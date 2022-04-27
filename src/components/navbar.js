@@ -34,7 +34,7 @@ const Navbar = () => {
             <div className="links">
                 <Link to="/">Dashboard</Link> <FontAwesomeIcon icon={faChartLine} className='icon'/>
                 <Link to="/calendar">Calendar</Link> <FontAwesomeIcon icon={faCalendarDays} className='icon'/>
-                <Link to="/graph">Graph</Link>
+                <Link to="/graph">Graph</Link> <FontAwesomeIcon icon={faChartLine} />
                 <Link to="/to-do">To-do</Link> <FontAwesomeIcon icon={faList} />
                 <Link to="/timer">Timer</Link> <FontAwesomeIcon icon={faHourglass} className='icon'/>
                 <Link to="/settings">Settings</Link> <FontAwesomeIcon icon={faGears} className='icon'/>

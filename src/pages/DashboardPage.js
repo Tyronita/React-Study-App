@@ -1,8 +1,5 @@
-import { Navigate } from "react-router-dom";
 import React, { useState }  from "react";
-
 import {Link} from "react-router-dom";
-
 import ModalParent from "../components/MoodModal";
 
 // import authentication

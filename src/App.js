@@ -1,6 +1,6 @@
 // Routing and hooks
 import {Route, Routes} from "react-router-dom";
-import React, { useState, Fragment } from "react";
+import React, { useState, useNavigate, Fragment } from "react";
 import PrivateRoute from "./components/PrivateRoute";
 
 // import authentication
@@ -14,7 +14,7 @@ import Navbar from "./components/navbar";
 import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import DashboardPage from "./pages/DashboardPage";
-import LoginStuff from "./pages/LoginStuff"
+import SettingsPage from "./pages/SettingsPage"
 
 import GraphPage from "./pages/GraphPage";
 import CalendarPage from "./pages/CalendarPage";
@@ -57,20 +57,20 @@ export default function App() {
             <Navbar />
             <Routes>
                 <Fragment>
-                    <Route exact path='/' element={<PrivateRoute/>}>
-                    <Route exact path='/' element={<DashboardPage/>}/></Route>
                     {/* Login stuff */}
                     <Route path="/log-in" element={<Login/>} />
                     <Route path="/sign-up" element={<Signup/>} />
 
-                    {/* Pages */}
-                    <Route path="/" element={<DashboardPage />} />
+                    {/* Protected Routes -> then */}
+                    <Route exact path='/' element={<PrivateRoute/>}>
+                    <Route exact path='/' element={<DashboardPage/>}/></Route>
+
                     <Route path="/calendar" element={<CalendarPage />} />
                     <Route path="/graph" element={<GraphPage />} />
                     <Route path="/stopwatch" element={<StopwatchPage />} />
                     <Route path="/timer" element={<Timer />} />
                     <Route path="/to-do" element={<TodoPage />} />
-                    <Route path="/settings" element={<LoginStuff/>} />
+                    <Route path="/settings" element={<SettingsPage/>} />
                     
                     {/* No match */}
                     <Route path="/*" element={ <NoMatchPage />} />

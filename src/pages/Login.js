@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Navigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Alert } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -17,24 +17,33 @@ export default function Login (){
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
 
+    const navigate = useNavigate();
     const [user, setUser] = useState({});
     
     // Create function to login when details submitted
     const login = async (e) => {
         e.preventDefault()
-        try {
-            setError('')
-            setLoading(true) // loading while we log on
-            const user = await signInWithEmailAndPassword(
-                auth,
-                loginEmail,
-                loginPassword
-            );
-        } catch (error) {
-            console.log(error.message);
-            setError('Failed to login')
-        }
+        setError('')
+        setLoading(true) // loading while we log on
+        const user = await signInWithEmailAndPassword(
+            auth,
+            loginEmail,
+            loginPassword
 
+        ).catch(error => {
+
+            console.log(error.message);
+            setError('Failed to login');
+
+        }).then (() => {
+            // Redirect to home page
+            navigate("/");
+            
+        }).catch (error => {
+            console.log(error.message);
+            setError('Failed to redirect')
+        })
+            
         setLoading(false)
     };
 
@@ -78,7 +87,7 @@ export default function Login (){
                 </div>
                 
                 {/* Submit password */}
-                <button onClick={login} class="w-100 btn btn-lg btn-primary"> Sign in</button>
+                <button onClick={login} class="w-100 btn btn-lg btn-primary" disabled={loading}> Sign in</button>
 
                 <p className="mt-5 mb-3 text-muted">&copy; 20172021</p>
 

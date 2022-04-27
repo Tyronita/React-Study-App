@@ -57,9 +57,8 @@ export default function TodoPage() {
   });
 
   // get to-dos from firebase
-  const PATH_NAME = "to-dos/";
   const [todos, setTodos] = useState([]);
-  const todosCollectionRef = collection(db, PATH_NAME)
+  const todosCollectionRef = collection(db, "to-dos/");
 
   // add task - to database
   const addTask = async (task) => {
@@ -71,7 +70,7 @@ export default function TodoPage() {
 
   // delete task with id
   const deleteTask = async (id) => {
-    const todoDoc = doc(db, PATH_NAME, id)
+    const todoDoc = doc(db, "/to-dos", id)
     await deleteDoc(todoDoc);
     setTodos(todos.filter((todo) => todo.id !== id))
   }
@@ -89,7 +88,6 @@ export default function TodoPage() {
 
     getTodos();
   }, [])
-
 
   return (
     <main>

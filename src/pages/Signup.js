@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
-import { Navigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { auth } from "../firebase-config";
 import { Alert } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 export default function Signup (){
 
     const [user, setUser] = useState({});
+    const navigate = useNavigate();
 
     const [registerEmail, setRegisterEmail] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
@@ -32,40 +33,25 @@ export default function Signup (){
             return setError('Passwords do not match')
         }
 
-        try {
+        setError('');
+        setLoading(true);
+        await register().catch (() => {
+            setError('Failed to create an account');
+        
+        // If register successful: sign in the user
+        }).then (async () => {
+            const user = await signInWithEmailAndPassword(auth, registerEmail, registerPassword)
+            .catch(() => {
+                setError("User Created. Login failed.");
+            })
+            // If login successful -> redirect back to home:
+            .then (() => {
+                navigate("/");
+            });
+        })
 
-            setError('');
-            setLoading(true);
-            await register();
-
-            // try {
-            //     await login();
-            // } catch {
-            //     setError('Failed to login')
-            // }
-
-        } catch {
-            setError('Failed to create an account')
-        }
         setLoading(false)
     }
-
-    // // Create function to login when details submitted
-    // const login = async (e) => {
-    //     e.preventDefault()
-    //     try {
-    //         setError('')
-    //         setLoading(true) // loading while we log on
-    //         const user = await signInWithEmailAndPassword(
-    //             auth,
-    //             registerEmail,
-    //             registerPassword
-    //         );
-    //     } catch (error) {
-    //         console.log(error.message);
-    //         setError('Failed to login')
-    //     }
-    // }
 
     const register = async () => {
         try {

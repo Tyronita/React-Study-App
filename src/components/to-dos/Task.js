@@ -16,6 +16,9 @@ function Task({task, onDelete, onToggle, onImportant, onReminder, onChangeRemind
     }
     return('task')
   }
+
+  const timeDifference = Math.floor((new Date() - task["datetime"]) / 1000);
+
   return (
     <div className = {importantAndReminder()}
       onDoubleClick={() => onToggle(task, task.id)}
@@ -31,7 +34,7 @@ function Task({task, onDelete, onToggle, onImportant, onReminder, onChangeRemind
         </p>
 
         <p>
-          {new Date(task["datetime"]).toString()}
+          Due: {new Date(task["datetime"]).toString()}
         </p>
 
     </div>
