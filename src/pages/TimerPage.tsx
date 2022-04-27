@@ -1,53 +1,49 @@
 import React from 'react';
-
 import {useState, useEffect} from 'react';
 import '../styles/TimerPage.css';
+import {db} from '../firebase-config'
+import {collection, addDoc} from "firebase/firestore";
 
+var on = false; 
+var currentTime = 0;
 
-var on = false;
-var setValues = false;
-
-function startTimer() {
+function startTimer() { //called when start button clicked
     on = true;
-    setValues = true;
+    currentTime = Date.now()
 }
 
-function resetTimer(){
+function resetTimer(){ //called when reset button clicked, resets values
     (document.getElementById("hour") as HTMLInputElement).value = '0';
     (document.getElementById("minute") as HTMLInputElement).value = '0';
     (document.getElementById("sec") as HTMLInputElement).value = '0';
     on = false;
 }
 
-const defaultRemainingTime = {
-    seconds: '0',
-    minutes: '0',
-    hours: '0'
-}
+const Timer = () => {
+    
 
-// @ts-ignore
-const Timer = ({time}) => {
-    const [remainingTime, setRemainingTime] = useState(defaultRemainingTime);
-    useEffect(() => {
+    useEffect(() => { //every 1 second function is called
         const intervalId = setInterval(() => {
-            updateRemainingTime(time);
+            updateRemainingTime();
         }, 1000);
         return () => clearInterval(intervalId);
-    },[time]);
+    },[]);
 
 
 
-    function updateRemainingTime(countdown: any) {
-        // setRemainingTime(getRemainingTimeUntilMsTimestamp(countdown));
+    async function updateRemainingTime() { //if on = true (start button clicked) then update values
+        const usersCollectionRef = collection(db, "timer-times");
         if (on) {
-            var seconds = (document.getElementById("sec") as HTMLInputElement).value;
+            var seconds = (document.getElementById("sec") as HTMLInputElement).value; //retrieve value from input element
             var sec: number = +seconds;
             var minutes = (document.getElementById("minute") as HTMLInputElement).value;
             var min: number = +minutes;
             var hours = (document.getElementById("hour") as HTMLInputElement).value;
             var hrs: number = +hours;
             if (sec == 0 && min == 0 && hrs == 0) {
+                await addDoc(usersCollectionRef, {time_duration: + new Date() - currentTime, time_started: currentTime})
                 on = false;
+
             }
             else {
                 sec--;
@@ -60,7 +56,7 @@ const Timer = ({time}) => {
                     }
                 }
             }
-            (document.getElementById("sec") as HTMLInputElement).value = sec.toString();
+            (document.getElementById("sec") as HTMLInputElement).value = sec.toString(); //update input element value
             (document.getElementById("minute") as HTMLInputElement).value = min.toString();
             (document.getElementById("hour") as HTMLInputElement).value = hrs.toString();
         }
